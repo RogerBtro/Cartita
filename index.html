@@ -21,28 +21,33 @@
             position: relative;
             border-radius: 10px;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             transition: transform 1s ease-in-out;
         }
         .envelope.open {
-            transform: translateY(-50px) scale(1.2);
+            transform: scale(1.2);
+            opacity: 0;
+            pointer-events: none;
         }
         .letter {
             width: 200px;
             height: 120px;
             background: white;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0;
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
             border-radius: 5px;
             padding: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .letter.show {
-            transform: translate(-50%, -50%) scale(1);
             opacity: 1;
+            transition: opacity 1s;
+        }
+        .letter.hidden {
+            opacity: 0;
         }
         .card {
             background: white;
@@ -92,7 +97,7 @@
     </div>
     <div class="card" id="card">
         <h1>Para mi amor Jocelyn ❤️</h1>
-        <img id="image1" src="carta1.jpg" alt="Imagen inicial">
+        <img id="image1" src="carta1.jpg" alt="Imagen inicial" style="display: block;">
         <img id="image2" src="carta2.jpg" alt="Imagen final">
         <p id="message">Eres la persona más especial en mi vida, y dare todo por tenerte.</p>
         <button onclick="changeMessage()" id="nextButton">Siguiente Mensaje</button>
@@ -108,12 +113,14 @@
         let nextButton = document.getElementById("nextButton");
         
         function openEnvelope() {
-            document.querySelector(".envelope").classList.add("open");
-            document.querySelector(".letter").classList.add("show");
+            let envelope = document.querySelector(".envelope");
+            let letter = document.querySelector(".letter");
+            envelope.classList.add("open");
+            letter.classList.add("hidden");
             setTimeout(() => {
-                document.querySelector(".envelope").style.display = "none";
+                envelope.style.display = "none";
                 document.getElementById("card").style.display = "block";
-            }, 1500);
+            }, 1000);
         }
 
         function changeMessage() {
