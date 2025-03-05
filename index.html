@@ -14,6 +14,36 @@
             font-family: Arial, sans-serif;
             text-align: center;
         }
+        .envelope {
+            width: 250px;
+            height: 150px;
+            background: #ff6b81;
+            position: relative;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 1s ease-in-out;
+        }
+        .envelope.open {
+            transform: translateY(-50px) scale(1.2);
+        }
+        .letter {
+            width: 200px;
+            height: 120px;
+            background: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .letter.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
         .card {
             background: white;
             padding: 20px;
@@ -21,6 +51,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             width: 90%;
             max-width: 400px;
+            display: none;
             animation: fadeIn 1s;
         }
         h1 {
@@ -51,17 +82,20 @@
             max-width: 300px;
             border-radius: 10px;
             margin-bottom: 10px;
-            display: none; /* Ocultar imágenes inicialmente */
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="envelope" onclick="openEnvelope()">
+        <div class="letter">Haz clic para abrir</div>
+    </div>
+    <div class="card" id="card">
         <h1>Para mi amor Jocelyn ❤️</h1>
         <img id="image1" src="carta1.jpg" alt="Imagen inicial">
         <img id="image2" src="carta2.jpg" alt="Imagen final">
         <p id="message">Eres la persona más especial en mi vida, y dare todo por tenerte.</p>
-        <button onclick="changeMessage()">Siguiente Mensaje</button>
+        <button onclick="changeMessage()" id="nextButton">Siguiente Mensaje</button>
     </div>
     <script>
         let messages = [
@@ -71,25 +105,29 @@
             "Cada día que te tengo es un regalo... 🎁"
         ];
         let index = 0;
+        let nextButton = document.getElementById("nextButton");
         
-        // Mostrar solo la primera imagen al inicio
-        document.getElementById("image1").style.display = "block";
-        document.getElementById("image2").style.display = "none";
+        function openEnvelope() {
+            document.querySelector(".envelope").classList.add("open");
+            document.querySelector(".letter").classList.add("show");
+            setTimeout(() => {
+                document.querySelector(".envelope").style.display = "none";
+                document.getElementById("card").style.display = "block";
+            }, 1500);
+        }
 
         function changeMessage() {
-            index = (index + 1) % messages.length;
-            document.getElementById("message").textContent = messages[index];
-            
-            // Controlar visibilidad de imágenes
-            if (index === 0) {
-                document.getElementById("image1").style.display = "block";
-                document.getElementById("image2").style.display = "none";
-            } else if (index === messages.length - 1) {
-                document.getElementById("image1").style.display = "none";
-                document.getElementById("image2").style.display = "block";
-            } else {
-                document.getElementById("image1").style.display = "none";
-                document.getElementById("image2").style.display = "none";
+            if (index < messages.length - 1) {
+                index++;
+                document.getElementById("message").textContent = messages[index];
+                if (index === messages.length - 1) {
+                    document.getElementById("image1").style.display = "none";
+                    document.getElementById("image2").style.display = "block";
+                    nextButton.style.display = "none"; // Ocultar el botón al final
+                } else {
+                    document.getElementById("image1").style.display = "none";
+                    document.getElementById("image2").style.display = "none";
+                }
             }
         }
     </script>
