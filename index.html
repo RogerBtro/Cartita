@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Para mi linda Novia</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe4e1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 1s;
+        }
+        h1 {
+            color: #ff6b81;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        button {
+            background-color: #ff6b81;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #ff4757;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Para mi amor Jocelyn ❤️</h1>
+        <p id="message">Eres la persona más especial en mi vida, y dare todo por tenerte.</p>
+        <button onclick="changeMessage()">Siguiente Mensaje</button>
+    </div>
+    <script>
+        let messages = [
+            "Eres la luz de mis días ☀️",
+            "Te quiero tanto que por ti haria hasta lo imposible... 💖",
+            "Eres mi persona favorita en el mundo y mas alla 🌎",
+            "Cada día que te tengo es un regalo... 🎁"
+        ];
+        let index = 0;
+        
+        function changeMessage() {
+            index = (index + 1) % messages.length;
+            document.getElementById("message").textContent = messages[index];
+        }
+    </script>
+</body>
+</html>
