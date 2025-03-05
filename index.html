@@ -46,11 +46,18 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Para mi amor Jocelyn ❤️</h1>
+        <img id="image" src="carta1.jpg" alt="Imagen de amor">
         <p id="message">Eres la persona más especial en mi vida, y dare todo por tenerte.</p>
         <button onclick="changeMessage()">Siguiente Mensaje</button>
     </div>
@@ -58,14 +65,21 @@
         let messages = [
             "Eres la luz de mis días ☀️",
             "Te quiero tanto que por ti haria hasta lo imposible... 💖",
-            "Eres mi persona favorita en el mundo y mas alla 🌎",
+            "Eres mi persona favorita en el mundo y más allá 🌎",
             "Cada día que te tengo es un regalo... 🎁"
+        ];
+        let images = [
+            "carta1.jpg", // Imagen para el primer mensaje
+            "carta1.jpg", 
+            "carta1.jpg", 
+            "carta2.jpg" // Imagen para el último mensaje
         ];
         let index = 0;
         
         function changeMessage() {
             index = (index + 1) % messages.length;
             document.getElementById("message").textContent = messages[index];
+            document.getElementById("image").src = images[index];
         }
     </script>
 </body>
